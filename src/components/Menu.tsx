@@ -112,3 +112,39 @@ const menuItems = [
     ],
   },
 ];
+
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+const Menu = () => {
+  return (
+    <div className="">
+      {menuItems.map((menuItem) => (
+        <div className="flex flex-col " key={menuItem.title}>
+          <span className="p-2 flex justify-center text-gray-400 font-light">
+            {menuItem.title}
+          </span>
+          {menuItem.items.map((item) => (
+            <Link
+              href={item.href}
+              key={item.label}
+              className="flex p-2 gap-4 justify-center items-center lg:justify-start text-gray-500"
+            >
+              <Image
+                src={item.icon}
+                alt={item.label}
+                key={item.label}
+                width={20}
+                height={20}
+              />
+              <span className="hidden lg:block">{item.label}</span>
+            </Link>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Menu;

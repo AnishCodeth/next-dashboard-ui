@@ -15,7 +15,7 @@ const config: Config = {
       },
       colors:{
         lamaSky:"#C3EBFA",
-        lamaSkyLight:"#3EDF9FD",
+        lamaSkyLight:"#3EDF9F",
         lamaPurple:"#CFCEFF",
         lamaPurpleLight:"#F1F0FF",
         lamaYellow:"#FAE27C",

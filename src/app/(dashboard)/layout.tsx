@@ -21,7 +21,7 @@ export default function DashboardLayout({
       </div>
 
       {/* navbar */}
-      <div className="w-5/6 md:w-[92%] lg:w-5/6 xl:w-[86%] flex flex-col bg-[#F7F8FA]">
+      <div className="w-5/6 md:w-[92%] lg:w-5/6 xl:w-[86%] flex flex-col bg-[#F7F8FA] ">
         <Navbar />
         {children}
       </div>

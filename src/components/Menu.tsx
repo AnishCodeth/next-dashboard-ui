@@ -1,3 +1,4 @@
+import { role } from ".//../lib/data";
 const menuItems = [
   {
     title: "MENU",
@@ -119,28 +120,31 @@ import React from "react";
 
 const Menu = () => {
   return (
-    <div className="">
+    <div className="flex flex-col gap-8">
       {menuItems.map((menuItem) => (
-        <div className="flex flex-col " key={menuItem.title}>
+        <div className="flex flex-col gap-4" key={menuItem.title}>
           <span className="p-2 flex justify-center text-gray-400 font-light">
             {menuItem.title}
           </span>
-          {menuItem.items.map((item) => (
-            <Link
-              href={item.href}
-              key={item.label}
-              className="flex p-2 gap-4 justify-center items-center lg:justify-start text-gray-500"
-            >
-              <Image
-                src={item.icon}
-                alt={item.label}
-                key={item.label}
-                width={20}
-                height={20}
-              />
-              <span className="hidden lg:block">{item.label}</span>
-            </Link>
-          ))}
+          {menuItem.items.map((item) => {
+            if (item.visible.includes(role))
+              return (
+                <Link
+                  href={item.href}
+                  key={item.label}
+                  className="flex p-2 gap-4 justify-center items-center lg:justify-start text-gray-500 rounded-md hover:bg-lamaSkyLight "
+                >
+                  <Image
+                    src={item.icon}
+                    alt={item.label}
+                    key={item.label}
+                    width={20}
+                    height={20}
+                  />
+                  <span className="hidden lg:block">{item.label}</span>
+                </Link>
+              );
+          })}
         </div>
       ))}
     </div>

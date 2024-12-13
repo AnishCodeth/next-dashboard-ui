@@ -4,13 +4,13 @@ import React from "react";
 const Navbar = () => {
   return (
     <div className="flex flex-row items-center justify-between p-4">
-      <div className="hidden  md:flex text-sm flex-row border-2 border-gray-400 rounded-full gap-2 rind-[1.5px] rind-gray-300 px-2">
+      <div className="hidden  md:flex item-center text-sm flex-row border-2 border-gray-400 rounded-full gap-2 rind-[1.5px] rind-gray-300 px-2">
         <Image
           src="/search.png"
           alt="search"
           width={14}
           height={14}
-          className=" p-[2px] "
+          className=" p-[2px] w-5 h-5"
         />
         <input
           type="text"

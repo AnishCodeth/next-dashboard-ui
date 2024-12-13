@@ -8,7 +8,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className=" flex">
+    <div className="h-screen flex">
       <div className="w-1/6 md:w-[8%] lg:w-1/6 xl:w-[14%] p-2">
         <Link
           href="/"
@@ -21,7 +21,7 @@ export default function DashboardLayout({
       </div>
 
       {/* navbar */}
-      <div className="w-5/6 md:w-[92%] lg:w-5/6 xl:w-[86%] flex flex-col bg-[#F7F8FA] ">
+      <div className="w-5/6 md:w-[92%] lg:w-5/6 xl:w-[86%] flex flex-col bg-[#F7F8FA] overflow-scroll">
         <Navbar />
         {children}
       </div>

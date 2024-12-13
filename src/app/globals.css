@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .b {
+    @apply border-2 border-red-500;
+  }
+}
+
 .react-calendar {
   width: 100% !important;
   border: none !important;

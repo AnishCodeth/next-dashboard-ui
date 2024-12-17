@@ -1,4 +1,3 @@
-import FormModal from "@/components/FormModal";
 import Pagination from "@/components/pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
@@ -13,20 +12,20 @@ const columns = [
     accessor: "info",
   },
   {
-    header: "Teacher ID",
-    accessor: "subjects",
+    header: "Student ID",
+    accessor: "Student ID",
     className: "hidden md:table-cell",
   },
   {
-    header: "Subjects",
-    accessor: "subjects",
+    header: "Grade",
+    accessor: "grade",
     className: "hidden md:table-cell",
   },
-  {
-    header: "Classes",
-    accessor: "classes",
-    className: "hidden md:table-cell",
-  },
+  // {
+  //   header: "Class",
+  //   accessor: "class",
+  //   className: "hidden md:table-cell",
+  // },
   {
     header: "Phone",
     accessor: "phone",
@@ -45,12 +44,12 @@ const columns = [
 
 type Item = {
   id: number;
-  teacherId: string;
+  studentId: string;
   name: string;
   email: string;
   photo: string;
-  subjects: [string];
-  classes: [string];
+  grade: Number;
+  class: string;
   address: string;
   phone: string;
 };
@@ -71,19 +70,19 @@ const Page = () => {
         />
         <div className="flex flex-col">
           <h1 className="font-bold">{item.name}</h1>
-          <p className="text-xs text-gray-500">{item.email}</p>
+          <p className="text-xs text-gray-500">{item.class}</p>
         </div>
       </td>
       {/* teacherid  */}
-      <td className="hidden md:table-cell">{item.teacherId}</td>
-      <td className="hidden md:table-cell">{item.classes.join(",")}</td>
-      <td className="hidden md:table-cell">{item.subjects.join(",")}</td>
+      <td className="hidden md:table-cell">{item.studentId}</td>
+      <td className="hidden md:table-cell">{item.grade.toString()}</td>
+      {/* <td className="hidden md:table-cell">{item.class}</td> */}
       <td className="hidden lg:table-cell">{item.phone}</td>
       <td className="hidden lg:table-cell">{item.address}</td>
       {/* actions  */}
       <td>
         <div className="flex  gap-4 items-center self-end">
-          <Link href={`/list/teachers/${item.id}`}>
+          <Link href={`/list/students/${item.id}`}>
             <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
               <Image src="/view.png" alt="" width={16} height={16} />
             </button>
@@ -102,7 +101,7 @@ const Page = () => {
     <div className="flex flex-col bg-white m-3 p-3 rounded-md flex-1 mt-0">
       {/* top */}
       <div className="flex items-center justify-between">
-        <h1 className="hidden md:block text-lg font-semibold">All Teachers</h1>
+        <h1 className="hidden md:block text-lg font-semibold">All Students</h1>
         <div className="flex flex-col p-2 items-center justify-end flex-1 md:flex-row gap-4 ">
           <TableSearch />
           {/* icons */}
@@ -113,13 +112,15 @@ const Page = () => {
             <button className="bg-yellow-300 p-2 rounded-full">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            <FormModal table="teacher" type="create" />
+            <button className="bg-yellow-300 p-2 rounded-full">
+              <Image src="/plus.png" alt="" width={14} height={14} />
+            </button>
           </div>
         </div>
       </div>
       {/* tabel */}
       <div className="">
-        <Table columns={columns} rowRender={rowrender} data={teachersData} />
+        <Table columns={columns} rowRender={rowrender} data={studentsData} />
       </div>
       {/* pagnation */}
       <div className="">

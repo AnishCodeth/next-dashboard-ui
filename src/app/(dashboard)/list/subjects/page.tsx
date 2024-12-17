@@ -2,40 +2,20 @@ import FormModal from "@/components/FormModal";
 import Pagination from "@/components/pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { role, studentsData, teachersData } from "@/lib/data";
+import { role, subjectsData } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const columns = [
   {
-    header: "Info",
-    accessor: "info",
+    header: "Subject Name",
+    accessor: "Subject Name",
   },
   {
-    header: "Teacher ID",
-    accessor: "subjects",
+    header: "Teachers",
+    accessor: "teachers",
     className: "hidden md:table-cell",
-  },
-  {
-    header: "Subjects",
-    accessor: "subjects",
-    className: "hidden md:table-cell",
-  },
-  {
-    header: "Classes",
-    accessor: "classes",
-    className: "hidden md:table-cell",
-  },
-  {
-    header: "Phone",
-    accessor: "phone",
-    className: "hidden lg:table-cell",
-  },
-  {
-    header: "Address",
-    accessor: "address",
-    className: "hidden lg:table-cell",
   },
   {
     header: "Actions",
@@ -45,14 +25,8 @@ const columns = [
 
 type Item = {
   id: number;
-  teacherId: string;
+  teachers: [string];
   name: string;
-  email: string;
-  photo: string;
-  subjects: [string];
-  classes: [string];
-  address: string;
-  phone: string;
 };
 
 const Page = () => {
@@ -62,36 +36,32 @@ const Page = () => {
       className="hover:bg-purple-100 even:bg-slate-50 text-sm border-b border-gray-200"
     >
       <td className="flex gap-4 p-4">
-        <Image
+        {/* <Image
           src={item.photo}
           alt=""
           height={40}
           width={40}
           className="rounded-full w-10 h-10 md:hidden"
-        />
+        /> */}
         <div className="flex flex-col">
           <h1 className="font-bold">{item.name}</h1>
-          <p className="text-xs text-gray-500">{item.email}</p>
         </div>
       </td>
       {/* teacherid  */}
-      <td className="hidden md:table-cell">{item.teacherId}</td>
-      <td className="hidden md:table-cell">{item.classes.join(",")}</td>
-      <td className="hidden md:table-cell">{item.subjects.join(",")}</td>
-      <td className="hidden lg:table-cell">{item.phone}</td>
-      <td className="hidden lg:table-cell">{item.address}</td>
+      <td className="hidden md:table-cell">{item.teachers.join(",")}</td>
       {/* actions  */}
       <td>
         <div className="flex  gap-4 items-center self-end">
-          <Link href={`/list/teachers/${item.id}`}>
-            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
-              <Image src="/view.png" alt="" width={16} height={16} />
-            </button>
-          </Link>
           {role == "admin" && (
-            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-              <Image src="/delete.png" alt="" width={16} height={16} />
-            </button>
+            <>
+              <FormModal
+                table="subject"
+                type="update"
+                id={item.id}
+                data={item}
+              />
+              <FormModal table="subject" type="delete" id={item.id} />
+            </>
           )}
         </div>
       </td>
@@ -113,13 +83,13 @@ const Page = () => {
             <button className="bg-yellow-300 p-2 rounded-full">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            <FormModal table="teacher" type="create" />
+            <FormModal table="subject" type="create" />
           </div>
         </div>
       </div>
       {/* tabel */}
       <div className="">
-        <Table columns={columns} rowRender={rowrender} data={teachersData} />
+        <Table columns={columns} rowRender={rowrender} data={subjectsData} />
       </div>
       {/* pagnation */}
       <div className="">

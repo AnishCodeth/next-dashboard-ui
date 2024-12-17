@@ -2,7 +2,7 @@ import Announcement from "@/components/Announcement";
 import MyCalendar from "@/components/BIgCalendar";
 import PerformanceChart from "@/components/PerformanceChart";
 import TeacherCards from "@/components/teacherCards";
-import { teachersData } from "@/lib/data";
+import { studentsData } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -14,7 +14,7 @@ const Page = ({ id }: { id: number }) => {
       {/* cards */}
       <div className="flex flex-col lg:flex-row gap-2 lg:justify-between">
         <div className="w-full lg:w-1/2">
-          <TeacherCards data={teachersData[0]} />
+          <TeacherCards data={studentsData[1]} />
         </div>
         {/* smaill cards  */}
         <div className="flex flex-wrap w-full lg:w-1/2  gap-2 justify-between">
@@ -42,8 +42,8 @@ const Page = ({ id }: { id: number }) => {
               className="w-4 h-4"
             />
             <div className="">
-              <h1 className="text-xl font-bold">90%</h1>
-              <p className="text-sm text-gray-500"> Branches</p>
+              <h1 className="text-xl font-bold">6th</h1>
+              <p className="text-sm text-gray-500"> Grade</p>
             </div>
           </div>
           <div className="flex w-full bg-white p-2 rounded-lg md:w-[48%] gap-4">
@@ -56,7 +56,7 @@ const Page = ({ id }: { id: number }) => {
               className="w-4 h-4"
             />
             <div className="">
-              <h1 className="text-xl font-bold">90%</h1>
+              <h1 className="text-xl font-bold">18</h1>
               <p className="text-sm text-gray-500"> Lessons</p>
             </div>
           </div>
@@ -70,8 +70,8 @@ const Page = ({ id }: { id: number }) => {
               className="w-4 h-4"
             />
             <div className="">
-              <h1 className="text-xl font-bold">90%</h1>
-              <p className="text-sm text-gray-500"> Classes</p>
+              <h1 className="text-xl font-bold">6A</h1>
+              <p className="text-sm text-gray-500"> Class</p>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@ const Page = ({ id }: { id: number }) => {
 
       {/* schedule  */}
       <div className="bg-white rounded-lg p-4 h-[800px]">
-        <h1>Teacher&apos;s Schedule</h1>
+        <h1>Student&apos;s Schedule</h1>
         <MyCalendar />
       </div>
       {/* shortcuts  */}
@@ -91,31 +91,31 @@ const Page = ({ id }: { id: number }) => {
             href="/"
             className="text-gray-500 text-sm p-2 bg-lamaSky rounded-md"
           >
-            Teacher&apos;s Classes
+            Student&apos;s Classes
           </Link>
           <Link
             href="/"
             className="text-gray-500 text-sm p-2 bg-lamaPurple rounded-md"
           >
-            Teacher&apos;s Students
+            Student&apos;s Students
           </Link>
           <Link
             href="/"
             className="text-gray-500 text-sm p-2 bg-lamaYellow rounded-md"
           >
-            Teacher&apos;s Lessons
+            Student&apos;s Lessons
           </Link>
           <Link
             href="/"
             className="text-gray-500 text-sm p-2 bg-lamaSky rounded-md"
           >
-            Teacher&apos;s Exams
+            Student&apos;s Exams
           </Link>
           <Link
             href="/"
             className="text-gray-500 text-sm p-2 bg-lamaPurple rounded-md"
           >
-            Teacher&apos;s Assignments
+            Student&apos;s Assignments
           </Link>
         </div>
       </div>

@@ -94,13 +94,13 @@ const Page = ({ id }: { id: number }) => {
             Teacher&apos;s Classes
           </Link>
           <Link
-            href="/"
+            href={`/list/students/?supervisorId=teacher12`}
             className="text-gray-500 text-sm p-2 bg-lamaPurple rounded-md"
           >
             Teacher&apos;s Students
           </Link>
           <Link
-            href="/"
+            href={`/list/lessons/?teacherId=${"teacher2"}`}
             className="text-gray-500 text-sm p-2 bg-lamaYellow rounded-md"
           >
             Teacher&apos;s Lessons

@@ -1,9 +1,23 @@
+"use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const TableSearch = () => {
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const params = new URLSearchParams(window.location.search);
+    params.set("search", (e.currentTarget[0] as HTMLInputElement).value);
+    router.push(`${window.location.pathname}?${params}`);
+  };
+
   return (
-    <div className="flex items-center w-full md:flex text-sm md:w-auto flex-row border-2 border-gray-400 rounded-full gap-2 rind-[1.5px] rind-gray-300 px-2 ">
+    <form
+      onSubmit={handleSubmit}
+      className="flex items-center w-full md:flex text-sm md:w-auto flex-row border-2 border-gray-400 rounded-full gap-2 rind-[1.5px] rind-gray-300 px-2 "
+    >
       <Image
         src="/search.png"
         alt="search"
@@ -16,7 +30,7 @@ const TableSearch = () => {
         placeholder="Search..."
         className="bg-inherit  w-[200px] p-1 outline-none"
       />
-    </div>
+    </form>
   );
 };
 

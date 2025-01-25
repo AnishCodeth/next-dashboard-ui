@@ -3,6 +3,9 @@ import Pagination from "@/components/pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import { role, subjectsData } from "@/lib/data";
+import { prisma } from "@/lib/prisma";
+import { ITEM_PER_PAGE } from "@/lib/setting";
+import { Lesson, Prisma, Subject, Teacher } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -23,50 +26,85 @@ const columns = [
   },
 ];
 
-type Item = {
-  id: number;
-  teachers: [string];
-  name: string;
-};
+type Item = Subject & { teachers: Teacher[] } & { lessons: Lesson[] };
 
-const Page = () => {
-  const rowrender = (item: Item) => (
-    <tr
-      key={item.id}
-      className="hover:bg-purple-100 even:bg-slate-50 text-sm border-b border-gray-200"
-    >
-      <td className="flex gap-4 p-4">
-        {/* <Image
-          src={item.photo}
-          alt=""
-          height={40}
-          width={40}
-          className="rounded-full w-10 h-10 md:hidden"
-        /> */}
-        <div className="flex flex-col">
-          <h1 className="font-bold">{item.name}</h1>
-        </div>
-      </td>
-      {/* teacherid  */}
-      <td className="hidden md:table-cell">{item.teachers.join(",")}</td>
-      {/* actions  */}
-      <td>
-        <div className="flex  gap-4 items-center self-end">
-          {role == "admin" && (
-            <>
-              <FormModal
-                table="subject"
-                type="update"
-                id={item.id}
-                data={item}
-              />
-              <FormModal table="subject" type="delete" id={item.id} />
-            </>
-          )}
-        </div>
-      </td>
-    </tr>
-  );
+const rowrender = (item: Item) => (
+  <tr
+    key={item.id}
+    className="hover:bg-purple-100 even:bg-slate-50 text-sm border-b border-gray-200"
+  >
+    <td className="flex gap-4 p-4">
+      {/* <Image
+        src={item.photo}
+        alt=""
+        height={40}
+        width={40}
+        className="rounded-full w-10 h-10 md:hidden"
+      /> */}
+      <div className="flex flex-col">
+        <h1 className="font-bold">{item.name}</h1>
+      </div>
+    </td>
+    {/* teacherid  */}
+    <td className="hidden md:table-cell">
+      {item.teachers.map((x) => x.name).join(",")}
+    </td>
+    {/* actions  */}
+    <td>
+      <div className="flex  gap-4 items-center self-end">
+        {role == "admin" && (
+          <>
+            <FormModal table="subject" type="update" id={item.id} data={item} />
+            <FormModal table="subject" type="delete" id={item.id} />
+          </>
+        )}
+      </div>
+    </td>
+  </tr>
+);
+const Page = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) => {
+  const { page, ...queryParams } = searchParams;
+  const p = page ? parseInt(page) : 1;
+  const queryWhere: Prisma.SubjectWhereInput = {};
+
+  if (queryParams) {
+    for (const [key, value] of Object.entries(searchParams)) {
+      if (value != undefined) {
+        switch (key) {
+          // case "studentId":
+          //   queryWhere.class = {
+          //     lessons: {
+          //       some: {},
+          //     },
+          //   };
+          //   break;
+          case "search":
+            queryWhere.name = {
+              contains: value,
+              mode: "insensitive",
+            };
+            break;
+        }
+      }
+    }
+  }
+
+  const [subjectsData, total_subjects] = await prisma.$transaction([
+    prisma.subject.findMany({
+      where: queryWhere,
+      include: {
+        teachers: true,
+        lessons: true,
+      },
+      take: ITEM_PER_PAGE,
+      skip: (Math.max(p, 0) - 1) * ITEM_PER_PAGE,
+    }),
+    prisma.subject.count({ where: queryWhere }),
+  ]);
 
   return (
     <div className="flex flex-col bg-white m-3 p-3 rounded-md flex-1 mt-0">
@@ -93,7 +131,7 @@ const Page = () => {
       </div>
       {/* pagnation */}
       <div className="">
-        <Pagination />
+        <Pagination page={p} count={total_subjects} />
       </div>
     </div>
   );

@@ -94,10 +94,10 @@ const Page = ({ id }: { id: number }) => {
             Student&apos;s Classes
           </Link>
           <Link
-            href="/"
+            href={`/list/teachers?classId=${2}`}
             className="text-gray-500 text-sm p-2 bg-lamaPurple rounded-md"
           >
-            Student&apos;s Students
+            Student&apos;s Teachers
           </Link>
           <Link
             href="/"

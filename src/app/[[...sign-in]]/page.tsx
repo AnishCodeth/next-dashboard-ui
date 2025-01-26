@@ -4,10 +4,20 @@ import * as Clerk from "@clerk/elements/common";
 import * as SignIn from "@clerk/elements/sign-in";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginPage() {
   const { isSignedIn, user, isLoaded } = useUser();
-  console.log(isSignedIn, user, isLoaded);
+  const router = useRouter();
+
+  useEffect(() => {
+    const role = user?.publicMetadata.role;
+    if (role) {
+      router.push(`/${role}`);
+    }
+  }, [user, router]);
+
   return (
     <div className="bg-lamaSky flex justify-center items-center h-screen w-screen">
       <SignIn.Root>
